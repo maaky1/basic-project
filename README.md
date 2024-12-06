@@ -21,7 +21,7 @@ Proyek ini bertujuan untuk:
 ---
 
 ## 📂 Struktur Proyek
-├───src
+```├───src
 │   ├───main
 │   │   ├───java
 │   │   │   └───me
@@ -38,3 +38,4 @@ Proyek ini bertujuan untuk:
 │   │       │
 │   │       ├───static
 │   │       └───templates
+```
