@@ -1,6 +1,6 @@
 # Basic Project - Spring Boot 🚀
 
-Proyek ini adalah langkah awal dalam perjalanan belajar Spring Boot. **Basic Project** dibuat untuk menampilkan pesan "Hello, Spring Boot!" menggunakan Spring Boot Starter Web.
+Proyek ini adalah langkah awal dalam perjalanan belajar Spring Boot. **Basic Project** dibuat untuk menampilkan pesan "Hello, World!" menggunakan Spring Boot Starter Web.
 
 ---
 
@@ -13,15 +13,16 @@ Proyek ini bertujuan untuk:
 ---
 
 ## 🛠️ Teknologi yang Digunakan
-- **Java**: Versi 17 (atau lebih baru).
-- **Spring Boot**: Versi 3.x.
+- **Java**: Amazon Correto 1.8.
+- **Spring Boot**: Spring 2.3.5.RELEASE.
 - **Maven**: Sebagai build tool.
 - **Embedded Server**: Tomcat (default).
 
 ---
 
 ## 📂 Struktur Proyek
-```├───src
+```
+├───src
 │   ├───main
 │   │   ├───java
 │   │   │   └───me
