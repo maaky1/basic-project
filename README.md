@@ -21,4 +21,20 @@ Proyek ini bertujuan untuk:
 ---
 
 ## 📂 Struktur Proyek
-src ├── main │ ├── java │ │ └── me.maaky1.basic.project │ │ ├── BasicProjectApplication.java # Entry point aplikasi │ │ └── controller │ │ └── GreetingController.java # REST API sederhana │ └── resources │ └── application.properties # Konfigurasi aplikasi
+├───src
+│   ├───main
+│   │   ├───java
+│   │   │   └───me
+│   │   │       └───maaky1
+│   │   │           └───basic
+│   │   │               └───project
+│   │   │                   │   BasicProjectApplication.java
+│   │   │                   │
+│   │   │                   └───controller
+│   │   │                           GreetingController.java
+│   │   │
+│   │   └───resources
+│   │       │   application.properties
+│   │       │
+│   │       ├───static
+│   │       └───templates
