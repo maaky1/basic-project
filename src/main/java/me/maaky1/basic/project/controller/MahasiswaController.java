@@ -26,10 +26,20 @@ public class MahasiswaController {
     @PostMapping("/insert")
     @Operation(summary = "Insert data mahasiswa", description = "Endpoint untuk menambahkan data mahasiswa")
     public ResponseEntity<?> insertDataMhs(@RequestBody MahasiswaDTO payload) {
-        RequestDTO requestDTO = CommonUtil.constructRequestPayload(null, null, payload);
-        log.info("[{}][RECEIVE REQUEST][{}][{}]", getClass().getSimpleName(), requestDTO.getRequestId(), requestDTO.getRequestPayload());
+        RequestDTO requestDTO = CommonUtil.constructRequestPayload(null, "insert-data-mahasiswa", null, payload);
+        log.info("[{}][RECEIVE REQUEST][{}][{}]", requestDTO.getRequestId(), requestDTO.getOperationName(), requestDTO.getRequestPayload());
         ResponseEntity<?> response = mahasiswaService.insertData(requestDTO);
-        log.info("[{}][REQUEST COMPLETED][{}]", this.getClass().getSimpleName(), requestDTO.getRequestId());
+        log.info("[{}][REQUEST COMPLETED][{}]", requestDTO.getRequestId(), requestDTO.getOperationName());
+        return response;
+    }
+
+    @PostMapping("/update")
+    @Operation(summary = "Update data mahasiswa", description = "Endpoint untuk memperbaharui data mahasiswa")
+    public ResponseEntity<?> updateDataMhs(@RequestBody MahasiswaDTO payload) {
+        RequestDTO requestDTO = CommonUtil.constructRequestPayload(null, "update-data-mahasiswa", null, payload);
+        log.info("[{}][RECEIVE REQUEST][{}][{}]", requestDTO.getRequestId(), requestDTO.getOperationName(), requestDTO.getRequestPayload());
+        ResponseEntity<?> response = mahasiswaService.updateData(requestDTO);
+        log.info("[{}][REQUEST COMPLETED][{}]", requestDTO.getRequestId(), requestDTO.getOperationName());
         return response;
     }
 }

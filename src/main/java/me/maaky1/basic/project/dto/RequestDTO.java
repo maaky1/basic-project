@@ -12,13 +12,15 @@ import java.time.LocalDateTime;
 public class RequestDTO<T> {
 
     private String requestId;
+    private String operationName;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime requestAt;
     private T requestPayload;
 
     @Builder(builderMethodName = "newBuilder")
-    public RequestDTO(String requestId, LocalDateTime requestAt , T requestPayload) {
+    public RequestDTO(String requestId, String operationName, LocalDateTime requestAt , T requestPayload) {
         this.requestId = requestId;
+        this.operationName = operationName;
         this.requestAt = requestAt;
         this.requestPayload = requestPayload;
     }

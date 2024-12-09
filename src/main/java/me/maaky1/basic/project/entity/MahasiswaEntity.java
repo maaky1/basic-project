@@ -3,6 +3,7 @@ package me.maaky1.basic.project.entity;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 @Data
 @Entity
@@ -22,4 +23,10 @@ public class MahasiswaEntity {
 
     @Column(name = "jenisKelamin", length = 15, nullable = false)
     private String jenisKelamin;
+
+    @Column(name = "createdOn")
+    private Timestamp createdOn;
+
+    @Column(name = "modifiedOn")
+    private Timestamp modifiedOn;
 }

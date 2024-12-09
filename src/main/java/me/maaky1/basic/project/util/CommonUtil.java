@@ -10,11 +10,13 @@ import java.util.UUID;
 public class CommonUtil {
 
     public synchronized static RequestDTO constructRequestPayload(String requestId,
+                                                                  String operationName,
                                                                   LocalDateTime requestAt,
                                                                   Object requestPayload) {
 
         return RequestDTO.newBuilder()
                 .requestId(requestId != null ? requestId : UUID.randomUUID().toString())
+                .operationName(operationName)
                 .requestAt(requestAt != null ? requestAt : LocalDateTime.now())
                 .requestPayload(requestPayload)
                 .build();
