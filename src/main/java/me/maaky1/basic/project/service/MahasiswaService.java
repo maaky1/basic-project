@@ -1,6 +1,7 @@
 package me.maaky1.basic.project.service;
 
 import lombok.extern.slf4j.Slf4j;
+import me.maaky1.basic.project.dto.GenericResponseDTO;
 import me.maaky1.basic.project.dto.MahasiswaDTO;
 import me.maaky1.basic.project.dto.RequestDTO;
 import me.maaky1.basic.project.entity.MahasiswaEntity;
@@ -21,8 +22,15 @@ public class MahasiswaService {
     private MahasiswaRepository mahasiswaRepository;
 
     public ResponseEntity<?> insertData(RequestDTO requestDTO) {
+
+        GenericResponseDTO<MahasiswaDTO> response = new GenericResponseDTO<MahasiswaDTO>()
+                .setCode("00")
+                .setMessage("Success")
+                .setStatus("ok");
+
         try {
             log.info("[{}][START][{}][{}]", requestDTO.getRequestId(), requestDTO.getOperationName(), requestDTO.getRequestAt());
+
             MahasiswaDTO mahasiswaDTO = (MahasiswaDTO) requestDTO.getRequestPayload();
             if (mahasiswaDTO.getNim().isEmpty() || mahasiswaDTO.getNamaMahasiswa().isEmpty() || mahasiswaDTO.getJenisKelamin().isEmpty()) throw new Exception("Pastikan value terisi semua");
 
@@ -32,16 +40,23 @@ public class MahasiswaService {
                     .setJenisKelamin(mahasiswaDTO.getJenisKelamin())
                     .setCreatedOn(Timestamp.valueOf(LocalDateTime.now()));
             mahasiswaRepository.save(mahasiswaEntity);
+            response.setData(mahasiswaDTO);
 
             log.info("[{}][FINISH][{}][{}]", requestDTO.getRequestId(), requestDTO.getOperationName(), requestDTO.getRequestAt());
-            return new ResponseEntity<>(mahasiswaDTO, HttpStatus.CREATED);
+            return new ResponseEntity<>(response, HttpStatus.CREATED);
         } catch (Exception e) {
             log.error("[{}][ERROR][{}][{}]", requestDTO.getRequestId(), requestDTO.getOperationName(), requestDTO.getRequestAt());
-            return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(response.setCode("01").setStatus("Failed").setMessage(e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     public ResponseEntity<?> updateData(RequestDTO requestDTO) {
+
+        GenericResponseDTO<MahasiswaDTO> response = new GenericResponseDTO<MahasiswaDTO>()
+                .setCode("00")
+                .setMessage("Success")
+                .setStatus("ok");
+
         try {
             log.info("[{}][START][{}][{}]", requestDTO.getRequestId(), requestDTO.getOperationName(), requestDTO.getRequestAt());
             MahasiswaDTO mahasiswaDTO = (MahasiswaDTO) requestDTO.getRequestPayload();
@@ -52,10 +67,10 @@ public class MahasiswaService {
             mahasiswaRepository.save(findByNim);
 
             log.info("[{}][START][{}][{}]", requestDTO.getRequestId(), requestDTO.getOperationName(), requestDTO.getRequestAt());
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>(response, HttpStatus.OK);
         } catch (Exception e) {
             log.info("[{}][START][{}][{}]", requestDTO.getRequestId(), requestDTO.getOperationName(), requestDTO.getRequestAt());
-            return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(response.setCode("01").setStatus("Failed").setMessage(e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }
