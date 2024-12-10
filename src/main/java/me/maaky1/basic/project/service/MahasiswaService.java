@@ -5,6 +5,7 @@ import me.maaky1.basic.project.dto.GenericResponseDTO;
 import me.maaky1.basic.project.dto.MahasiswaDTO;
 import me.maaky1.basic.project.dto.RequestDTO;
 import me.maaky1.basic.project.entity.MahasiswaEntity;
+import me.maaky1.basic.project.entity.MataKuliahEntity;
 import me.maaky1.basic.project.repository.MahasiswaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,6 +14,8 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 @Slf4j
 @Service
@@ -37,7 +40,6 @@ public class MahasiswaService {
             MahasiswaEntity mahasiswaEntity = new MahasiswaEntity()
                     .setNamaMahasiswa(mahasiswaDTO.getNamaMahasiswa())
                     .setNim(mahasiswaDTO.getNim())
-                    .setJenisKelamin(mahasiswaDTO.getJenisKelamin())
                     .setCreatedOn(Timestamp.valueOf(LocalDateTime.now()));
             mahasiswaRepository.save(mahasiswaEntity);
             response.setData(mahasiswaDTO);
