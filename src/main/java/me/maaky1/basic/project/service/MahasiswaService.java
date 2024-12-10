@@ -74,7 +74,7 @@ public class MahasiswaService {
         }
     }
 
-    /*public ResponseEntity<?> deleteData(RequestDTO requestDTO) {
+    public ResponseEntity<?> deleteData(RequestDTO requestDTO) {
 
         GenericResponseDTO<MahasiswaDTO> response = new GenericResponseDTO<MahasiswaDTO>()
                 .setCode("00")
@@ -83,12 +83,11 @@ public class MahasiswaService {
 
         try {
             log.info("[{}][START][{}][{}]", requestDTO.getRequestId(), requestDTO.getOperationName(), requestDTO.getRequestAt());
-            MahasiswaDTO mahasiswaDTO = (MahasiswaDTO) requestDTO.getRequestPayload();
-            if (mahasiswaDTO.getNim().isEmpty()) throw new Exception("Masukkan NIM yang sesuai");
+            String mhsNim = String.valueOf(requestDTO.getRequestPayload()).trim();
+            if (mhsNim.isEmpty()) throw new Exception("Masukkan NIM yang sesuai");
 
-            MahasiswaEntity findByNim = mahasiswaRepository.findByNim(mahasiswaDTO.getNim()).orElseThrow(() -> new Exception("Data tidak ditemukan"));
-            if (!mahasiswaDTO.getNamaMahasiswa().isEmpty()) mahasiswaRepository.deleteByNim()
-            mahasiswaRepository.save(findByNim);
+            MahasiswaEntity findByNim = mahasiswaRepository.findByNim(mhsNim).orElse(null);
+            if (findByNim != null) mahasiswaRepository.deleteById(findByNim.getId());
 
             log.info("[{}][START][{}][{}]", requestDTO.getRequestId(), requestDTO.getOperationName(), requestDTO.getRequestAt());
             return new ResponseEntity<>(response, HttpStatus.OK);
@@ -96,5 +95,5 @@ public class MahasiswaService {
             log.info("[{}][START][{}][{}]", requestDTO.getRequestId(), requestDTO.getOperationName(), requestDTO.getRequestAt());
             return new ResponseEntity<>(response.setCode("01").setStatus("Failed").setMessage(e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
         }
-    }*/
+    }
 }

@@ -41,12 +41,12 @@ public class MahasiswaController {
         return response;
     }
 
-    @PostMapping("/update")
-    @Operation(summary = "Update data mahasiswa", description = "Endpoint untuk memperbaharui data mahasiswa")
-    public ResponseEntity<?> updateDataMhs1(@RequestBody MahasiswaDTO payload) {
-        RequestDTO requestDTO = CommonUtil.constructRequestPayload(null, "update-data-mahasiswa", null, payload);
+    @DeleteMapping("/delete/{nim}")
+    @Operation(summary = "Delete data mahasiswa", description = "Endpoint untuk menghapus data mahasiswa")
+    public ResponseEntity<?> updateDataMhs1(@PathVariable long nim) {
+        RequestDTO requestDTO = CommonUtil.constructRequestPayload(null, "delete-data-mahasiswa", null, nim);
         log.info("[{}][RECEIVE REQUEST][{}][{}]", requestDTO.getRequestId(), requestDTO.getOperationName(), requestDTO.getRequestPayload());
-        ResponseEntity<?> response = mahasiswaService.updateData(requestDTO);
+        ResponseEntity<?> response = mahasiswaService.deleteData(requestDTO);
         log.info("[{}][REQUEST COMPLETED][{}]", requestDTO.getRequestId(), requestDTO.getOperationName());
         return response;
     }
