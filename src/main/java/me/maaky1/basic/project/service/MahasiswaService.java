@@ -63,7 +63,7 @@ public class MahasiswaService {
             if (mahasiswaDTO.getNim().isEmpty()) throw new Exception("Masukkan NIM yang sesuai");
 
             MahasiswaEntity findByNim = mahasiswaRepository.findByNim(mahasiswaDTO.getNim()).orElseThrow(() -> new Exception("Data tidak ditemukan"));
-            if (!mahasiswaDTO.getNamaMahasiswa().isEmpty()) findByNim.setNamaMahasiswa(mahasiswaDTO.getNamaMahasiswa()).setModifiedOn(Timestamp.valueOf(LocalDateTime.now()));;
+            if (!mahasiswaDTO.getNamaMahasiswa().isEmpty()) findByNim.setNamaMahasiswa(mahasiswaDTO.getNamaMahasiswa()).setModifiedOn(Timestamp.valueOf(LocalDateTime.now()));
             mahasiswaRepository.save(findByNim);
 
             log.info("[{}][START][{}][{}]", requestDTO.getRequestId(), requestDTO.getOperationName(), requestDTO.getRequestAt());
@@ -73,4 +73,28 @@ public class MahasiswaService {
             return new ResponseEntity<>(response.setCode("01").setStatus("Failed").setMessage(e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    /*public ResponseEntity<?> deleteData(RequestDTO requestDTO) {
+
+        GenericResponseDTO<MahasiswaDTO> response = new GenericResponseDTO<MahasiswaDTO>()
+                .setCode("00")
+                .setMessage("Success")
+                .setStatus("ok");
+
+        try {
+            log.info("[{}][START][{}][{}]", requestDTO.getRequestId(), requestDTO.getOperationName(), requestDTO.getRequestAt());
+            MahasiswaDTO mahasiswaDTO = (MahasiswaDTO) requestDTO.getRequestPayload();
+            if (mahasiswaDTO.getNim().isEmpty()) throw new Exception("Masukkan NIM yang sesuai");
+
+            MahasiswaEntity findByNim = mahasiswaRepository.findByNim(mahasiswaDTO.getNim()).orElseThrow(() -> new Exception("Data tidak ditemukan"));
+            if (!mahasiswaDTO.getNamaMahasiswa().isEmpty()) mahasiswaRepository.deleteByNim()
+            mahasiswaRepository.save(findByNim);
+
+            log.info("[{}][START][{}][{}]", requestDTO.getRequestId(), requestDTO.getOperationName(), requestDTO.getRequestAt());
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (Exception e) {
+            log.info("[{}][START][{}][{}]", requestDTO.getRequestId(), requestDTO.getOperationName(), requestDTO.getRequestAt());
+            return new ResponseEntity<>(response.setCode("01").setStatus("Failed").setMessage(e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }*/
 }

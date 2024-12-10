@@ -8,4 +8,6 @@ import java.util.Optional;
 public interface MahasiswaRepository extends JpaRepository<MahasiswaEntity, Long> {
 
     Optional<MahasiswaEntity> findByNim(String nim);
+
+    int deleteByNim(String nim);
 }

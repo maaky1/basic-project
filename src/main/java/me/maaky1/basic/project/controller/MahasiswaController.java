@@ -9,10 +9,7 @@ import me.maaky1.basic.project.service.MahasiswaService;
 import me.maaky1.basic.project.util.CommonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
@@ -33,9 +30,20 @@ public class MahasiswaController {
         return response;
     }
 
+    @PutMapping("/update/{nim}")
+    @Operation(summary = "Update data mahasiswa", description = "Endpoint untuk memperbaharui data mahasiswa")
+    public ResponseEntity<?> updateDataMhs(@PathVariable long nim, @RequestBody MahasiswaDTO payload) {
+        payload.setNim(String.valueOf(nim));
+        RequestDTO requestDTO = CommonUtil.constructRequestPayload(null, "update-data-mahasiswa", null, payload);
+        log.info("[{}][RECEIVE REQUEST][{}][{}]", requestDTO.getRequestId(), requestDTO.getOperationName(), requestDTO.getRequestPayload());
+        ResponseEntity<?> response = mahasiswaService.updateData(requestDTO);
+        log.info("[{}][REQUEST COMPLETED][{}]", requestDTO.getRequestId(), requestDTO.getOperationName());
+        return response;
+    }
+
     @PostMapping("/update")
     @Operation(summary = "Update data mahasiswa", description = "Endpoint untuk memperbaharui data mahasiswa")
-    public ResponseEntity<?> updateDataMhs(@RequestBody MahasiswaDTO payload) {
+    public ResponseEntity<?> updateDataMhs1(@RequestBody MahasiswaDTO payload) {
         RequestDTO requestDTO = CommonUtil.constructRequestPayload(null, "update-data-mahasiswa", null, payload);
         log.info("[{}][RECEIVE REQUEST][{}][{}]", requestDTO.getRequestId(), requestDTO.getOperationName(), requestDTO.getRequestPayload());
         ResponseEntity<?> response = mahasiswaService.updateData(requestDTO);
